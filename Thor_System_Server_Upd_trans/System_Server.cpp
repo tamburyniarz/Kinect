@@ -9,6 +9,7 @@
 
 void ThorServerSystem::RunSystem()
 {
+	LoadIPFromFile();
 	//std::thread graber_thread(GraberThreadStarter, this);
 	std::thread reciever_thread(RecieverThreadStarter, this);
 	std::thread sender_thread(SenderThreadStarter, this);
@@ -51,7 +52,7 @@ void ThorServerSystem::ServerReciever()
 	//Prepare the sockaddr_in 
 	server.sin_family = AF_INET;
 	server.sin_addr.s_addr = INADDR_ANY;
-	server.sin_port = htons(RECIEVING_PORT);
+	server.sin_port = htons(recieving_port_);
 
 	//Bind
 	if (::bind(s, (struct sockaddr *)&server, sizeof(server)) == SOCKET_ERROR)
@@ -138,8 +139,7 @@ void ThorServerSystem::ServerSender()
 	//setup address structure
 	memset((char *)&si_other, 0, sizeof(si_other));
 	si_other.sin_family = AF_INET;
-	si_other.sin_port = htons(SENDING_PORT);
-	LoadIPFromFile();
+	si_other.sin_port = htons(sending_port_);
 	si_other.sin_addr.S_un.S_addr = inet_addr(client_ip_);
 
 	//start communication
@@ -359,6 +359,22 @@ void ThorServerSystem::LoadIPFromFile(char * file_name)
 		std::cout << prefix << " ";
 		file >> client_ip_;
 		std::cout << client_ip_ << "\n";
+	}
+	// Sending port
+	file >> prefix;
+	if (prefix[0] == '#')
+	{
+		std::cout << prefix << " ";
+		file >> sending_port_;
+		std::cout << sending_port_ << "\n";
+	}
+	// Receiving port
+	file >> prefix;
+	if (prefix[0] == '#')
+	{
+		std::cout << prefix << " ";
+		file >> recieving_port_;
+		std::cout << recieving_port_ << "\n";
 	}
 	file.close();
 }

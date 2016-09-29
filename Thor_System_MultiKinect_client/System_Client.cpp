@@ -191,9 +191,25 @@ void ThorClientSystem::LoadIPFromFile(char* file_name)
 	file >> prefix;
 	if (prefix[0] == '#')
 	{
-		std::cout << prefix << " ";
+		std::cout << "\n" << prefix << " ";
 		file >> server_1_;
 		std::cout << server_1_ << "\n";
+	}
+	// Sending port 1
+	file >> prefix;
+	if (prefix[0] == '#')
+	{
+		std::cout << prefix << " ";
+		file >> sending_port_1_;
+		std::cout << sending_port_1_ << "\n";
+	}
+	// Receiving port 1
+	file >> prefix;
+	if (prefix[0] == '#')
+	{
+		std::cout << prefix << " ";
+		file >> recieving_port_1_;
+		std::cout << recieving_port_1_ << "\n\n";
 	}
 	// Server 2
 	file >> prefix;
@@ -202,6 +218,22 @@ void ThorClientSystem::LoadIPFromFile(char* file_name)
 		std::cout << prefix << " ";
 		file >> server_2_;
 		std::cout << server_2_ << "\n";
+	}
+	// Sending port 2
+	file >> prefix;
+	if (prefix[0] == '#')
+	{
+		std::cout << prefix << " ";
+		file >> sending_port_2_;
+		std::cout << sending_port_2_ << "\n";
+	}
+	// Receiving port 2
+	file >> prefix;
+	if (prefix[0] == '#')
+	{
+		std::cout << prefix << " ";
+		file >> recieving_port_2_;
+		std::cout << recieving_port_2_ << "\n";
 	}
 	file.close();
 }
@@ -376,8 +408,8 @@ ThorClientSystem::ThorClientSystem(int iResourceID, char* sWindowName) : cOpenGL
 	num_of_servers_ = 2;
 	client_recievers_ = new ThorClientReciever*[num_of_servers_];
 	LoadIPFromFile(); // Load IP from file
-	client_recievers_[0] = new ThorClientReciever(SENDING_PORT_1, RECIEVING_PORT_1, server_1_);
-	client_recievers_[1] = new ThorClientReciever(SENDING_PORT_2, RECIEVING_PORT_2, server_2_);
+	client_recievers_[0] = new ThorClientReciever(sending_port_1_, recieving_port_1_, server_1_);
+	client_recievers_[1] = new ThorClientReciever(sending_port_2_, recieving_port_2_, server_2_);
 	rotation_x_ = 0.0f;
 	rotation_y_ = 0.0f;
 	x_axis_pos = 0.0f;

@@ -14,7 +14,7 @@
 #include "kinect2_grabber.h"
 #include <winsock2.h>
 
-#define CLIENT "172.20.2.208"		//ip address of udp client
+//#define CLIENT "172.20.2.208"		//ip address of udp client
 #define BUFLEN 1000					//Max length of buffer
 #define RECBUFLEN 14				// Length of reeceiveing bufer
 #define SENDING_PORT 8890			//The port on which to send data
@@ -68,7 +68,8 @@ private:
 	std::queue<RecievedMessage> message_queue_;								//queue for communication between sender and reciever
 
 	char client_ip_[16];
-
+	unsigned short sending_port_;
+	unsigned short recieving_port_;
 
 	void LoadIPFromFile(char * file_name = "client_IP.txt");
 	void GrabFrames();

@@ -43,6 +43,10 @@ protected:
 private:
 	char server_1_[16];
 	char server_2_[16];
+	unsigned short sending_port_1_;
+	unsigned short recieving_port_1_;
+	unsigned short sending_port_2_;
+	unsigned short recieving_port_2_;
 
 	GLfloat rotation_x_;
 	GLfloat rotation_y_;
