@@ -164,7 +164,7 @@ int _tmain(int argc, _TCHAR* argv[])
 				}
 
 				// Coordinate Mapping Depth to Camera Space, and Setting PointCloud XYZ
-				CameraSpacePoint cameraSpacePoint = { 0.0f, 0.0f, 0.0f };
+				CameraSpacePoint cameraSpacePoint = { 100.0f, 0.0f, 0.0f };
 				pCoordinateMapper->MapDepthPointToCameraSpace(depthSpacePoint, depth, &cameraSpacePoint);
 				if ((0 <= colorX) && (colorX < colorWidth) && (0 <= colorY) && (colorY < colorHeight)) {
 					point.x = cameraSpacePoint.X;

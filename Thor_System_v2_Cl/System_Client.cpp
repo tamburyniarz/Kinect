@@ -491,7 +491,7 @@ void ThorClientSystem::ClientSender()
 	memset((char *)&si_other, 0, sizeof(si_other));
 	si_other.sin_family = AF_INET;
 	si_other.sin_port = htons(SENDING_PORT);
-	si_other.sin_addr.S_un.S_addr = inet_addr(SERVER);
+	si_other.sin_addr.S_un.S_addr = INADDR_ANY;
 
 	//start communication
 	while (1)

@@ -11,11 +11,10 @@
 #include <pcl/point_types.h>
 #include <pcl/compression/octree_pointcloud_compression.h>
 #include <winsock2.h>
-#include "cOpenGLWindow.h"
 #include "DatagramCollector.h"
 #include "../Include/OpenGLWindowClass/cOpenGLWindow.h"
 
-#define SERVER "172.20.128.13"		//ip address od server
+#define SERVER "127.0.0.1"		//ip address od server
 #define BUFLEN 10					//Max length of buffer
 #define SEND_BUF_LEN 1000
 #define RECBUFLEN 1024				// Length of recieving bufer

@@ -71,7 +71,6 @@ private:
 	mutable std::mutex you_shall_not_pass_;											//mutex for communication between coder and sender
 	std::stringstream *next_coded_frame_;									//datagrams containig codded frames
 
-
 	void CompresData();
 	void GrabFrames();
 	void ServerSender();

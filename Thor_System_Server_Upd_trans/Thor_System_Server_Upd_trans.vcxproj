@@ -155,6 +155,9 @@
     <ClInclude Include="DatagramController.h" />
     <ClInclude Include="System_Server.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="client_IP.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

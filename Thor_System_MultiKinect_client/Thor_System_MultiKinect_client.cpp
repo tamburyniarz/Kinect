@@ -9,12 +9,10 @@
 int main(int argc, char* argv[])
 {
 
-	ThorClientSystem *stream_visualiser = new ThorClientSystem(PUTV4_YUV_PREVIEW_WINDOW, "cos");
+	ThorClientSystem *stream_visualiser = new ThorClientSystem(PUTV4_YUV_PREVIEW_WINDOW, "Client");
 	stream_visualiser->RunSystem();
 	stream_visualiser->Show();
 	MSG msg;
-
-
 
 	while (GetMessage(&msg, NULL, 0, 0)) {
 		TranslateMessage(&msg);

@@ -6,14 +6,18 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include "System_Server.h"
+#include "kinect2_grabber.h"
+#include <pcl/visualization/pcl_visualizer.h>
 
 void ThorServerSystem::RunSystem()
 {
 	LoadIPFromFile();
 	//std::thread graber_thread(GraberThreadStarter, this);
+//	std::thread display_thread(DisplayThreadStarter, this);
 	std::thread reciever_thread(RecieverThreadStarter, this);
 	std::thread sender_thread(SenderThreadStarter, this);
 	//graber_thread.detach();
+//	display_thread.detach();
 	reciever_thread.detach();
 	sender_thread.detach();
 	GrabFrames();
@@ -173,7 +177,7 @@ void ThorServerSystem::ServerSender()
 				}
 			}
 			else
-			{
+			{ 
 				if (rec_num_pack_counter == 0)
 				{
 					//retransmiting number of frames
@@ -270,7 +274,7 @@ void ThorServerSystem::ServerSender()
 				break;
 			default:
 				if (DEBUG_FLAG)
-					printf("takie cus: %d   data:   %d    frame: %d", actual_message.mes_type_s, actual_message.datagram_number_s, actual_message.frame_number_s);
+					printf("msg_type: %d   data_nr:   %d    frame_nr: %d", actual_message.mes_type_s, actual_message.datagram_number_s, actual_message.frame_number_s);
 			}
 			//temporary_queue.pop();
 			if (DEBUG_FLAG)
@@ -377,6 +381,63 @@ void ThorServerSystem::LoadIPFromFile(char * file_name)
 		std::cout << recieving_port_ << "\n";
 	}
 	file.close();
+}
+
+
+typedef pcl::PointXYZRGBA PointType;
+
+void ThorServerSystem::Display()
+{// PCL Visualizer
+	boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer(
+		new pcl::visualization::PCLVisualizer("Point Cloud Viewer"));
+	viewer->setCameraPosition(0.0, 0.0, -2.5, 0.0, 0.0, 0.0);
+
+	// Point Cloud
+	pcl::PointCloud<PointType>::ConstPtr cloud;
+
+	// Retrieved Point Cloud Callback Function
+	boost::mutex mutex;
+	boost::function<void(const pcl::PointCloud<PointType>::ConstPtr&)> function =
+		[&cloud, &mutex](const pcl::PointCloud<PointType>::ConstPtr& ptr) {
+		boost::mutex::scoped_lock lock(mutex);
+		cloud = ptr;
+	};
+
+	// Kinect2Grabber
+	boost::shared_ptr<pcl::Grabber> grabber = boost::make_shared<pcl::Kinect2Grabber>();
+
+	// Register Callback Function
+	boost::signals2::connection connection = grabber->registerCallback(function);
+
+	// Start Grabber
+	grabber->start();
+
+	while (!viewer->wasStopped()) {
+		// Update Viewer
+		viewer->spinOnce();
+
+		boost::mutex::scoped_try_lock lock(mutex);
+		if (cloud && lock.owns_lock()) {
+			if (cloud->size() != 0) {
+				/* Processing to Point Cloud */
+
+				// Update Point Cloud
+				if (!viewer->updatePointCloud(cloud, "cloud")) {
+					viewer->addPointCloud(cloud, "cloud");
+				}
+			}
+		}
+	}
+
+	// Stop Grabber
+	grabber->stop();
+
+	// Disconnect Callback Function
+	if (connection.connected()) {
+		connection.disconnect();
+	}
+
+	
 }
 
 //kinect frames grabber

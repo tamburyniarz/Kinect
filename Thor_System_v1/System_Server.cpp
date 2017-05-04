@@ -479,6 +479,7 @@ void ThorServerSystem::GrabFrames()
 }
 
 
+
 void ThorServerSystem::CompresData()
 {
 	bool showStatistics = SHOW_COMPR_STATS;

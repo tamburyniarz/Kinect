@@ -39,10 +39,10 @@ void ThorClientReciever::CloudDecoder()
 		selectedProfile.iFrameRate,
 		selectedProfile.doColorEncoding,
 		static_cast<unsigned char>(selectedProfile.colorBitResolution)
-		);
+	);
 
 	bool is_frame_to_decompress = false;
-	DatagramCollector *actual_decoding_frame = nullptr;
+	DatagramCollector* actual_decoding_frame = nullptr;
 
 	while (1)
 	{
@@ -142,9 +142,9 @@ void ThorClientReciever::ClientReciever()
 	}
 
 	//initializing data collector
-	DatagramCollector *recieved_data = nullptr;
+	DatagramCollector* recieved_data = nullptr;
 
-	while (1)
+	while (true)
 	{
 		if (!server_responded)
 		{
@@ -172,7 +172,7 @@ void ThorClientReciever::ClientReciever()
 
 
 		int Received = recvfrom(s, rec_conf, RECBUFLEN, 0, (struct sockaddr *) &si_other, &slen);
-		if (Received>0)
+		if (Received > 0)
 		{
 			if (Received >= 2)
 			{
@@ -332,7 +332,6 @@ void ThorClientReciever::ClientSender()
 		}
 		else
 		{
-
 		}
 		//Sleep(1);
 	}
@@ -343,7 +342,7 @@ void ThorClientReciever::ClientSender()
 	return;
 }
 
-void ThorClientReciever::CreateMessageToSend(char *buffer, ThorClientReciever::ClientReplyMessage client_reciever_message)
+void ThorClientReciever::CreateMessageToSend(char* buffer, ThorClientReciever::ClientReplyMessage client_reciever_message)
 {
 	//message type
 	buffer[0] = static_cast<char>((client_reciever_message.mes_type_s & 0xFF00) >> 8);
@@ -356,7 +355,7 @@ void ThorClientReciever::CreateMessageToSend(char *buffer, ThorClientReciever::C
 	return;
 }
 
-ThorClientReciever::ClientReplyMessage ThorClientReciever::DatagramRecognition(char *buffer)
+ThorClientReciever::ClientReplyMessage ThorClientReciever::DatagramRecognition(char* buffer)
 {
 	ClientReplyMessage recieved_message;
 	if (buffer[0] == 'N' && buffer[1] == 'U' && buffer[2] == 'M' && buffer[3] == ':')

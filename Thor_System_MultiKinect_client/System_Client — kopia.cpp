@@ -333,73 +333,8 @@ bool ThorClientSystem::xDrawGLScene()
 	glRotatef(180.0 + rotation_y_, 0.0f, 1.0f, 0.0f);
 	glRotatef(rotation_x_, 1.0f, 0.0f, .0f);
 
-	glTranslatef(x_axis_pos, 0.0f, 0.0f);;
-
-
-	if (actual_displaying_frame_1_ != nullptr)
-	{
-		int offset_x = 0;
-
-
-		if (actual_displaying_frame_2_ != nullptr)
-		{
-
-			aligner.setSourceCloud(actual_displaying_frame_1_);
-			aligner.setTargetCloud(actual_displaying_frame_2_);
-			aligner.InitialAlign();
-			actual_displaying_frame_1_ = aligner.getTargetCloud();
-		}
-
-		glBegin(GL_POINTS);
-		for (size_t i = 0; i < actual_displaying_frame_1_->points.size(); ++i)
-		{
-			glColor4f(actual_displaying_frame_1_->points[i].r / 255.0, actual_displaying_frame_1_->points[i].g / 255.0, actual_displaying_frame_1_->points[i].b / 255.0, actual_displaying_frame_1_->points[i].a / 255.0);
-			glVertex3f(actual_displaying_frame_1_->points[i].x + offset_x, actual_displaying_frame_1_->points[i].y, actual_displaying_frame_1_->points[i].z);
-		}
-		glEnd();
-	}
+	//	glTranslatef(6.0f + x_axis_pos, 0.0f, 0.0f);
 	//
-	//	if (actual_displaying_frame_2_ != nullptr)
-	//	{
-	//		int offset_x = 5;
-	//
-	//		glBegin(GL_POINTS);
-	//		for (size_t i = 0; i < actual_displaying_frame_2_->points.size(); ++i)
-	//		{
-	//			glColor4f(actual_displaying_frame_2_->points[i].r / 255.0, actual_displaying_frame_2_->points[i].g / 255.0, actual_displaying_frame_2_->points[i].b / 255.0, actual_displaying_frame_2_->points[i].a / 255.0);
-	//			glVertex3f(actual_displaying_frame_2_->points[i].x + offset_x, actual_displaying_frame_2_->points[i].y, actual_displaying_frame_2_->points[i].z);
-	//		}
-	//		glEnd();
-	//	}
-
-	//	if ((actual_displaying_frame_1_ != nullptr) && (actual_displaying_frame_2_ != nullptr))
-	//	{
-	//		if (!connected)
-	//		{
-	//			printf("\nConnected port 8888. Size: %i", actual_displaying_frame_1_->points.size());
-	//			printf("\nConnected port 8890. Size %i", actual_displaying_frame_2_->points.size());
-	//			connected = true;
-	//		}
-	//
-	//		glBegin(GL_POINTS);
-	//
-	//		for (size_t i = 0; i < actual_displaying_frame_1_->points.size(); ++i)
-	//		{
-	//			glColor4f(actual_displaying_frame_1_->points[i].r / 255.0, actual_displaying_frame_1_->points[i].g / 255.0, actual_displaying_frame_1_->points[i].b / 255.0, actual_displaying_frame_1_->points[i].a / 255.0);
-	//			glVertex3f(actual_displaying_frame_1_->points[i].x, actual_displaying_frame_1_->points[i].y, actual_displaying_frame_1_->points[i].z);
-	//		}
-	//
-	//		int offset_x = 100;
-	//
-	//		for (size_t i = 0; i < actual_displaying_frame_2_->points.size(); ++i)
-	//		{
-	//			glColor4f(actual_displaying_frame_2_->points[i].r / 255.0, actual_displaying_frame_2_->points[i].g / 255.0, actual_displaying_frame_2_->points[i].b / 255.0, actual_displaying_frame_2_->points[i].a / 255.0);
-	//			glVertex3f(actual_displaying_frame_2_->points[i].x + offset_x, actual_displaying_frame_2_->points[i].y, actual_displaying_frame_2_->points[i].z);
-	//		}
-	//
-	//		glEnd();
-	//	}
-
 	//	if (!(actual_displaying_frame_1_ == nullptr) && actual_displaying_frame_2_ == nullptr)
 	//	{
 	//		glBegin(GL_POINTS);
@@ -427,40 +362,40 @@ bool ThorClientSystem::xDrawGLScene()
 	//		glEnd();
 	//	}
 
-	//	static bool is_icp = true;
-	//
-	//	glTranslatef(x_axis_pos, 0.0f, 0.0f);;
-	//	if (!(actual_displaying_frame_1_ == nullptr) && !(actual_displaying_frame_2_ == nullptr))
-	//	{
-	//		// set clouds to alligner
-	////		aligner.setSourceCloud(actual_displaying_frame_1_);
-	////		aligner.setTargetCloud(actual_displaying_frame_2_);
-	//
-	//		//		aligner.InitialAlign();
-	//		//		actual_displaying_frame_final_ = aligner.getFinalCloud();
-	//
-	//		if (actual_displaying_frame_1_->size() > 0 && actual_displaying_frame_2_->size() > 0)
-	//		{
-	////			aligner.align();
-	//			if (is_icp)
-	//			{
-	//				std::cout << "ICP start.";
-	//				is_icp = false;
-	//			}
-	//		}
-	////		actual_displaying_frame_final_ = aligner.getFinalCloud();
-	//		actual_displaying_frame_final_ = actual_displaying_frame_2_;
-	//
-	//		glBegin(GL_POINTS);
-	//
-	//		for (size_t i = 0; i < actual_displaying_frame_final_->points.size(); ++i)
-	//		{
-	//			glColor4f(actual_displaying_frame_final_->points[i].r / 255.0, actual_displaying_frame_final_->points[i].g / 255.0, actual_displaying_frame_final_->points[i].b / 255.0, actual_displaying_frame_final_->points[i].a / 255.0);
-	//			glVertex3f(actual_displaying_frame_final_->points[i].x, actual_displaying_frame_final_->points[i].y, actual_displaying_frame_final_->points[i].z);
-	//		}
-	//
-	//		glEnd();
-	//	}
+	static bool is_icp = true;
+
+	glTranslatef(x_axis_pos, 0.0f, 0.0f);;
+	if (!(actual_displaying_frame_1_ == nullptr) && !(actual_displaying_frame_2_ == nullptr))
+	{
+		// set clouds to alligner
+//		aligner.setSourceCloud(actual_displaying_frame_1_);
+//		aligner.setTargetCloud(actual_displaying_frame_2_);
+
+		//		aligner.InitialAlign();
+		//		actual_displaying_frame_final_ = aligner.getFinalCloud();
+
+		if (actual_displaying_frame_1_->size() > 0 && actual_displaying_frame_2_->size() > 0)
+		{
+//			aligner.align();
+			if (is_icp)
+			{
+				std::cout << "ICP start.";
+				is_icp = false;
+			}
+		}
+//		actual_displaying_frame_final_ = aligner.getFinalCloud();
+		actual_displaying_frame_final_ = actual_displaying_frame_2_;
+
+		glBegin(GL_POINTS);
+
+		for (size_t i = 0; i < actual_displaying_frame_final_->points.size(); ++i)
+		{
+			glColor4f(actual_displaying_frame_final_->points[i].r / 255.0, actual_displaying_frame_final_->points[i].g / 255.0, actual_displaying_frame_final_->points[i].b / 255.0, actual_displaying_frame_final_->points[i].a / 255.0);
+			glVertex3f(actual_displaying_frame_final_->points[i].x, actual_displaying_frame_final_->points[i].y, actual_displaying_frame_final_->points[i].z);
+		}
+
+		glEnd();
+	}
 
 	//cOpenGLWindow::xDrawGLScene();
 

@@ -17,9 +17,9 @@
 //#define CLIENT "172.20.2.208"		//ip address of udp client
 #define BUFLEN 1000					//Max length of buffer
 #define RECBUFLEN 14				// Length of reeceiveing bufer
-#define SENDING_PORT 8890			//The port on which to send data
-#define RECIEVING_PORT 8891			//The port on which to listen for incoming data
-#define NUM_OF_SENDED 5			//Number of possible datagram sended without confirmation
+#define SENDING_PORT 8888			//The port on which to send data
+#define RECIEVING_PORT 8889			//The port on which to listen for incoming data
+#define NUM_OF_SENDED 5				//Number of possible datagram sended without confirmation
 #define CONF_TIMEOUT 3000
 #define RR_TIMEOUT 2
 #define DEBUG_FLAG 0
@@ -73,12 +73,14 @@ private:
 
 	void LoadIPFromFile(char * file_name = "client_IP.txt");
 	void GrabFrames();
+	void Display();
 	void ServerSender();
 	void ServerReciever();
 	RecievedMessage TranstaleRecievedMessage(char *buffer);
 
 	static void GraberThreadStarter(ThorServerSystem *my_server) { return my_server->GrabFrames(); }
 	static void SenderThreadStarter(ThorServerSystem *my_server) { return my_server->ServerSender(); }
+	static void DisplayThreadStarter(ThorServerSystem *my_server) { return my_server->Display(); }
 	static void RecieverThreadStarter(ThorServerSystem *my_server) { return my_server->ServerReciever(); }
 };
 

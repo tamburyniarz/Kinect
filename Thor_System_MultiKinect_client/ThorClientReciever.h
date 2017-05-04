@@ -15,7 +15,7 @@
 #define BUFLEN 10					//Max length of buffer
 #define SEND_BUF_LEN 1000
 #define RECBUFLEN 1024				// Length of recieving bufer
-#define DEBUG_FLAG 0
+#define DEBUG_FLAG 1
 #define RECIEVING_SOCKET_TIMEOUT 200
 #define COMPRESSION_PROFILE pcl::io::LOW_RES_ONLINE_COMPRESSION_WITH_COLOR
 
